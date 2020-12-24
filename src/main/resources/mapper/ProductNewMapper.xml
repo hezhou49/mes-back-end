@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.edu.cims.sunwa2.mapper.ProductNewMapper">
+    <select id="listAll" resultType="cn.edu.cims.sunwa2.model.ProductNew">
+        SELECT * FROM product_new ;
+    </select>
+    <select id="listSelected" resultType="cn.edu.cims.sunwa2.model.ProductNew">
+        select * FROM product_new where 1=1
+        <if test="orderNum !=null and orderNum !=''">and orderNum = #{orderNum}</if>
+        <if test="workpieceNum !=null and workpieceNum !=''">and workpieceNum = #{workpieceNum}</if>
+        <if test="lineName !=null and lineName !=''">and lineName = #{lineName}</if>
+        <if test="quality !=null and quality !=''">and quality = #{quality}</if>
+    </select>
+    <insert id="save" parameterType="cn.edu.cims.sunwa2.model.ProductNew">
+        INSERT INTO product_new (orderNum,workpieceNum,lineName,workTime,quality)
+        VALUES (#{orderNum}, #{workpieceNum},#{lineName},#{workTime},#{quality})
+    </insert>
+</mapper>

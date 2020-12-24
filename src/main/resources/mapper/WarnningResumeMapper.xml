@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.edu.cims.sunwa2.mapper.WarnningResumeMapper">
+    <select id="listAll" resultType="cn.edu.cims.sunwa2.model.WarnningResume">
+     SELECT * FROM warnningResume order by warntime desc;
+ </select>
+    <select id="listSelected" resultType="cn.edu.cims.sunwa2.model.WarnningResume">
+        select * FROM warnningResume
+        <where>
+            <if test="line !=null and line !=''">and line = #{line}</if>
+            <if test="equipmentname !=null and equipmentname !=''">and equipmentname=#{equipmentname}</if>
+            <if test="startTime !='' and endTime !=''">and handletime between #{startTime} and #{endTime}</if>
+        </where>
+
+    </select>
+    <insert id="save" parameterType="cn.edu.cims.sunwa2.model.WarnningResume">
+  insert into warnningResume (line, equipmentname,warndetails,warntime, handlemeasure, handleperson, handletime)
+  VALUES (#{line}, #{equipmentname},#{warndetails},#{warntime}, #{handlemeasure}, #{handleperson}, #{handletime})
+  </insert>
+
+</mapper>

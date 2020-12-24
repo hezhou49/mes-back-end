@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.edu.cims.sunwa2.mapper.EquipmentListMapper">
+    <select id="listAll" resultType="cn.edu.cims.sunwa2.model.EquipmentList">
+     SELECT * FROM EquipmentList;
+ </select>
+    <select id="listSelected" resultType="cn.edu.cims.sunwa2.model.EquipmentList">
+     SELECT * FROM EquipmentList where lineName = #{lineName};
+ </select>
+
+</mapper>

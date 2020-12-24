@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.edu.cims.sunwa2.mapper.OrderMapper">
+    <select id="listAllByStatus" resultType="cn.edu.cims.sunwa2.model.Order">
+        SELECT * FROM orderlist where status=#{status} order by submittime desc;
+    </select>
+    <select id="listSelected" resultType="cn.edu.cims.sunwa2.model.Order">
+        select * FROM orderlist
+        <where>
+            <if test="status !=null and status !=''">and status = #{status}</if>
+            <if test="ordernumber !=null and ordernumber !=''">and ordernumber = #{ordernumber}</if>
+            <if test="linename !=null and linename !=''">and linename=#{linename}</if>
+            <if test="guige !=null and guige !=''">and guige LIKE CONCAT('%',#{guige},'%')</if>
+            <if test="startTime !='' and startTime !=null and endTime !='' and endTime !=null">and starttime between #{startTime} and #{endTime}</if>
+        </where>
+        order by starttime desc;
+    </select>
+    <insert id="save" parameterType="cn.edu.cims.sunwa2.model.Order">
+        INSERT INTO orderlist (ordernumber, linename,status,submittime,starttime,finishtime,delivertime,amount,guige,progress)
+        VALUES (#{ordernumber}, #{linename},#{status},#{submittime},#{starttime},#{finishtime},#{delivertime},#{amount},#{guige},#{progress})
+    </insert>
+    <delete id="delete" parameterType="cn.edu.cims.sunwa2.model.Order">
+        DELETE from orderlist where ordernumber = #{ordernumber} and status = #{status}
+    </delete>
+    <update id="update" parameterType="cn.edu.cims.sunwa2.model.Order">      <!--更新数据信息-->
+        <if test="ordernumber!=null">
+            update orderlist
+            <set>
+                <if test="status !=null and status!=''">
+                    status =#{status},
+                </if>
+                <if test="finishtime !=null">
+                    finishtime =#{finishtime},
+                </if>
+                <if test="progress !=null and progress!=''">
+                    progress =#{progress},
+                </if>
+                <if test="energy !=null ">
+                    energy =#{energy},
+                </if>
+                <if test="quality !=null ">
+                    quality =#{quality},
+                </if>
+            </set>
+            where ordernumber = #{ordernumber};
+        </if>
+    </update>
+</mapper>

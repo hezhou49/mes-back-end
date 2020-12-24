@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.edu.cims.sunwa2.mapper.QualityWarnningMapper">
+    <select id="listAll" resultType="cn.edu.cims.sunwa2.model.QualityWarnning">
+     SELECT * FROM qualityWarnning order by warntime desc;
+    </select>
+    <select id="listSelected" resultType="cn.edu.cims.sunwa2.model.QualityWarnning">
+        select * FROM qualityWarnning where 1=1
+        <if test="lineName !=null and lineName !=''">and lineName = #{lineName}</if>
+        <if test="orderNum !=null and orderNum !=''">and orderNum=#{orderNum}</if>
+        <if test="warnType !=null and warnType !=''">and warnType=#{warnType}</if>
+        <if test="warnTime !=null and warnTime !=''">and warnTime &lt;= #{warnTime}</if>
+        order by warnTime desc;
+    </select>
+    <insert id="save" parameterType="cn.edu.cims.sunwa2.model.QualityWarnning">
+        INSERT INTO qualityWarnning (lineName, equipmentName,orderNum,warnType,warnTime)
+  VALUES (#{lineName}, #{equipmentName},#{orderNum},#{warnType},#{warnTime})
+    </insert>
+<!--    <update id="update" parameterType="cn.edu.cims.sunwa2.model.Warnning">-->
+<!--        update warnning  set warnstate = #{state} where id = #{id};-->
+<!--    </update>-->
+</mapper>

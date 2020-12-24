@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.edu.cims.sunwa2.mapper.WarnningMapper">
+    <select id="listAll" resultType="cn.edu.cims.sunwa2.model.Warnning">
+     SELECT * FROM warnning order by warnTime desc;
+    </select>
+    <select id="count" resultType="int">
+     SELECT COUNT(*) FROM warnning where equipmentName = #{equipmentName};
+    </select>
+
+    <select id="unhandled" resultType="cn.edu.cims.sunwa2.model.Warnning">
+     SELECT * FROM warnning where warnState = #{warnState} order by warntime desc;
+    </select>
+    <select id="fenye" resultType="cn.edu.cims.sunwa2.model.Warnning">
+     SELECT * FROM warnning where warnState = #{warnState};
+    </select>
+    <select id="listSelected" resultType="cn.edu.cims.sunwa2.model.Warnning">
+        select * FROM warnning
+        <where>
+            <if test="lineName !=null and lineName !=''">and lineName = #{lineName}</if>
+            <if test="equipmentName !=null and equipmentName !=''">and equipmentName=#{equipmentName}</if>
+            <if test="startTime !='' and endTime !=''">and warnTime  between #{startTime} and #{endTime}</if>
+        </where>
+        order by warntime desc;
+    </select>
+    <update id="update" parameterType="cn.edu.cims.sunwa2.model.Warnning">
+        update warnning  set warnState = #{state} where id = #{id};
+    </update>
+    <insert id="save" parameterType="cn.edu.cims.sunwa2.model.Warnning">
+        INSERT INTO warnning (lineName, equipmentName,warnDetails,warnTime,warnState)
+  VALUES (#{lineName}, #{equipmentName},#{warnDetails},#{warnTime},#{warnState})
+    </insert>
+</mapper>

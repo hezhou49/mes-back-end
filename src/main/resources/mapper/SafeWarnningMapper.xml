@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.edu.cims.sunwa2.mapper.SafeWarnningMapper">
+    <select id="listAll" resultType="cn.edu.cims.sunwa2.model.SafeWarnning">
+     SELECT * FROM safeWarnning order by departureTime desc;
+    </select>
+    <select id="listSelected" resultType="cn.edu.cims.sunwa2.model.SafeWarnning">
+        select * FROM safeWarnning where 1=1
+        <if test="lineName !=null and lineName !=''">and lineName = #{lineName}</if>
+        <if test="departure !=null and departure !=''">and departureTime &lt;= #{departure}</if>
+        order by departureTime desc;
+    </select>
+    <insert id="save" parameterType="cn.edu.cims.sunwa2.model.SafeWarnning">
+        INSERT INTO safeWarnning (lineName, position,intrudingTime,departureTime)
+  VALUES (#{lineName}, #{position},#{intrudingTime},#{departureTime})
+    </insert>
+<!--    <update id="update" parameterType="cn.edu.cims.sunwa2.model.Warnning">-->
+<!--        update warnning  set warnstate = #{state} where id = #{id};-->
+<!--    </update>-->
+</mapper>

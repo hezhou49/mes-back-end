@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.edu.cims.sunwa2.mapper.ProductMapper">
+    <select id="listAll" resultType="cn.edu.cims.sunwa2.model.Product">
+     SELECT * FROM product order by endTime desc;
+    </select>
+    <select id="listSelected" resultType="cn.edu.cims.sunwa2.model.Product">
+        select * FROM product where 1=1
+        <if test="orderNum !=null and orderNum !=''">and orderNum = #{orderNum}</if>
+        <if test="materialId !=null and materialId !=''">and materialId = #{materialId}</if>
+        <if test="lineName !=null and lineName !=''">and lineName = #{lineName}</if>
+        <if test="endTime !=null and endTime !=''">and endTime &lt;= #{endTime}</if>
+        order by endTime desc;
+    </select>
+    <insert id="save" parameterType="cn.edu.cims.sunwa2.model.Product">
+        INSERT INTO product (orderNum, materialId,workpieceNum,lineName,beginTime,endTime,quality)
+  VALUES (#{orderNum}, #{materialId},#{workpieceNum},#{lineName},#{beginTime},#{endTime},#{quality})
+    </insert>
+</mapper>

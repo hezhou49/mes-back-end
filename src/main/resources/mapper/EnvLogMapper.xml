@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.edu.cims.sunwa2.mapper.EnvLogMapper">
+    <select id="listAll" resultType="cn.edu.cims.sunwa2.model.EnvLog">
+        SELECT * FROM envLog order by recordTime;
+    </select>
+    <insert id="save" parameterType="cn.edu.cims.sunwa2.model.EnvLog">
+        INSERT INTO envLog (averageTemperature, averageHumidity,recordTime)
+        VALUES (#{averageTemperature}, #{averageHumidity},#{recordTime})
+    </insert>
+</mapper>

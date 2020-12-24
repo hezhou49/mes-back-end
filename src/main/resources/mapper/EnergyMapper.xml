@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.edu.cims.sunwa2.mapper.EnergyMapper">
+    <select id="listAll" resultType="cn.edu.cims.sunwa2.model.Energy">
+        SELECT * FROM energy order by date desc;
+    </select>
+    <select id="listMostRecent" resultType="cn.edu.cims.sunwa2.model.Energy" >
+        SELECT top 1 * FROM  energy  order by date desc;
+    </select>
+    <select id="listSelected" resultType="cn.edu.cims.sunwa2.model.Energy">
+        select * FROM energy where 1=1
+        <if test="linename !=null and linename !=''">and linename = #{linename}</if>
+        <if test="date !=null and date !=''">and date = #{date}</if>
+        order by date desc;
+    </select>
+    <select id="listDistinct" resultType="java.lang.String" >
+        SELECT distinct
+        <if test="column =='month' ">month</if>
+        <if test="column =='year' ">year</if>
+        FROM energy;
+    </select>
+    <select id="listTop" resultType="cn.edu.cims.sunwa2.model.Energy" >
+        SELECT top 1 * FROM  energy where
+        <if test="column =='month' ">month</if>
+        <if test="column =='year' ">year</if>
+        = #{time} order by date desc;
+    </select>
+    <update id="update" parameterType="cn.edu.cims.sunwa2.model.Energy">      <!--更新数据信息-->
+        update energy set total_energy =total_energy+#{value}, year_energy =year_energy+#{value}, month_energy =month_energy+#{value},
+        day_energy =day_energy+#{value} where date = #{date};
+    </update>
+    <insert id="save" parameterType="cn.edu.cims.sunwa2.model.Energy">
+        INSERT INTO energy (linename, date,year,month,total_energy,year_energy,month_energy,day_energy)
+        VALUES (#{linename}, #{date},#{year},#{month},#{total_energy},#{year_energy},#{month_energy},#{day_energy})
+    </insert>
+</mapper>
