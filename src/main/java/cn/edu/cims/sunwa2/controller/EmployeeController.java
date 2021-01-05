@@ -42,6 +42,10 @@ public class EmployeeController {
     @RequestMapping("/update")
     public RespBean update(String employeeStr) {
         Employee employee = JSON.parseObject(employeeStr, Employee.class);
+        if (employee.getPassword()!=null && !employee.getPassword().equals("")){
+            String passwordEncode = new BCryptPasswordEncoder().encode(employee.getPassword());
+            employee.setPassword(passwordEncode);
+        }
         employeeService.update(employee);
         return  RespBean.ok("编辑成功");
     }

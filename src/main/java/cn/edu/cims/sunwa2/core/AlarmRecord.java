@@ -73,7 +73,7 @@ public class AlarmRecord {
         SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy");
         String year = sdf2.format(date);
         //写入值
-        last_energy.setLinename("门板生产线");
+        last_energy.setLinename("轿壁线");
         last_energy.setDate(date);
         last_energy.setYear(year);
         last_energy.setMonth(month);

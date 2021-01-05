@@ -143,7 +143,7 @@ public class MqttReceiveConfig {
                         String equipName_zh="";
                         if (equip.equals("robot1")) equipName_zh="加强筋机器人";
                         if (equip.equals("robot2")) equipName_zh="组装机器人";
-                        if (equip.equals("robot3")) equipName_zh="压外包板机器人";
+                        if (equip.equals("robot3")) equipName_zh="外包板机器人";
                         if (equip.equals("robot4")) equipName_zh="打胶机器人";
                         if (equip.equals("zhewanji1")) equipName_zh="加强筋折弯机";
                         if (equip.equals("zhewanji2")) equipName_zh="外包板折弯机";
@@ -193,7 +193,7 @@ public class MqttReceiveConfig {
                                 if (orderService.listSelected("1", orderNum, null, null, null, null).isEmpty()){
                                     Order order=new Order();
                                     order.setOrdernumber(orderNum);
-                                    order.setLinename("门板生产线");
+                                    order.setLinename("轿壁线");
                                     order.setAmount(amount);
                                     order.setProgress(0);
                                     order.setStatus("1");
@@ -254,7 +254,7 @@ public class MqttReceiveConfig {
                         if((boolean) JSONObject.parseObject(message.getPayload().toString()).get("data")){
                             if(orderNum!=null&&banjian_all!=null&&banjian_left!=null&&productTime!=null&&productNewService.listSelected(orderNum,String.valueOf(banjian_all-banjian_left),null,null).isEmpty()){
                                 ProductNew product=new ProductNew();
-                                product.setLineName("门板生产线");
+                                product.setLineName("轿壁线");
                                 product.setOrderNum(orderNum);
                                 product.setQuality("合格");
                                 product.setWorkpieceNum(String.valueOf(banjian_all-banjian_left));
@@ -269,7 +269,7 @@ public class MqttReceiveConfig {
                         if (!productQuality){
                             if (orderNum!=null&&banjian_all!=null&&banjian_left!=null&&productNewService.listSelected(orderNum,String.valueOf(banjian_all-banjian_left),null,null).isEmpty()){
                                 ProductNew product=new ProductNew();
-                                product.setLineName("门板生产线");
+                                product.setLineName("轿壁线");
                                 product.setOrderNum(orderNum);
                                 product.setQuality("不合格");
                                 product.setWorkpieceNum(String.valueOf(banjian_all-banjian_left));
